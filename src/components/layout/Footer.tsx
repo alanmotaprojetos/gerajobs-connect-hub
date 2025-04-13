@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Linkedin, Mail } from 'lucide-react';
 
@@ -12,8 +11,11 @@ const Footer = () => {
           {/* Logo and about */}
           <div>
             <Link to="/" className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 rounded-md gj-gradient-bg flex items-center justify-center text-white font-bold text-xl">G</div>
-              <span className="text-xl font-bold text-white">GeraJobs</span>
+              <img 
+                src="/lovable-uploads/e8a98e2d-51ed-47d8-90fb-57ee556bced3.png" 
+                alt="GeraJobs.org Logo" 
+                className="h-10 w-auto"
+              />
             </Link>
             <p className="text-sm text-gray-300 mb-4">
               Conectando talentos às melhores oportunidades de emprego e educação profissional.
