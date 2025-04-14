@@ -109,6 +109,19 @@ const jobsData = [
     logoUrl: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80",
     postedAt: "1 semana atrás",
     skills: ["SQL", "Python", "Power BI"]
+  },
+  {
+    id: "9",
+    title: "Engenheiro Civil",
+    company: "MRV Engenharia",
+    location: "Belo Horizonte, MG",
+    type: "full-time" as const,
+    salary: "9.000 - 12.000",
+    logoUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/MRV_Engenharia_logo.svg/320px-MRV_Engenharia_logo.svg.png",
+    postedAt: "2 dias atrás",
+    isNew: true,
+    isFeatured: true,
+    skills: ["Gerenciamento de Obras", "AutoCAD", "MS Project", "Orçamento de Obras"]
   }
 ];
 
