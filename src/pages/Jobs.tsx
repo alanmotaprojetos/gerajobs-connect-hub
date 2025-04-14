@@ -16,7 +16,6 @@ import {
   ArrowLeft 
 } from "lucide-react";
 
-// Dados de exemplo para vagas
 const jobsData = [
   {
     id: "1",
@@ -124,7 +123,7 @@ const Jobs = () => {
   
   const handleSearch = (filters: any) => {
     console.log("Pesquisando com filtros:", filters);
-    // Implementação real de busca seria feita aqui
+    
   };
   
   const handlePageChange = (pageNumber: number) => {
