@@ -122,6 +122,7 @@ const jobsData = [
     isNew: true,
     isFeatured: true,
     skills: ["Gerenciamento de Obras", "AutoCAD", "MS Project", "Orçamento de Obras"]
+    link: "https://vagas-mrveco.gupy.io/job/eyJqb2JJZCI6ODcwNTkxOSwic291cmNlIjoiZ3VweV9wb3J0YWwifQ==?jobBoardSource=gupy_portal"
   }
 ];
 
