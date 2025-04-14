@@ -23,7 +23,7 @@ const jobsData = [
     company: "TechSolutions",
     location: "São Paulo, SP",
     type: "full-time" as const,
-    salary: "8.000 - 12.000",
+    salary: "5.000 - 6.000",
     logoUrl: "https://images.unsplash.com/photo-1549923746-c502d488b3ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80",
     postedAt: "2 dias atrás",
     isFeatured: true,
