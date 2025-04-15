@@ -18,7 +18,7 @@ import { Card, CardContent } from "@/components/ui/card";
 const Index = () => {
   const services = [
     {
-      title: "Cursos Profissionalizantes",
+      title: "Cursos",
       description: "Expanda suas habilidades com cursos de qualidade ministrados por especialistas da indústria.",
       icon: <BookOpen className="h-10 w-10 text-gj-purple" />,
       link: "/courses"
@@ -30,13 +30,13 @@ const Index = () => {
       link: "/jobs"
     },
     {
-      title: "Loja de Materiais",
+      title: "Store",
       description: "Acesse e-books, apostilas e materiais exclusivos para impulsionar sua carreira.",
       icon: <ShoppingBag className="h-10 w-10 text-gj-purple" />,
       link: "/store"
     },
     {
-      title: "Blog e Notícias",
+      title: "Notícias",
       description: "Fique por dentro das tendências do mercado e dicas para desenvolvimento profissional.",
       icon: <Newspaper className="h-10 w-10 text-gj-purple" />,
       link: "/news"
