@@ -1,3 +1,4 @@
+
 import Layout from "@/components/layout/Layout";
 import StoreCard from "@/components/ui-custom/StoreCard";
 import { useState } from "react";
@@ -11,7 +12,7 @@ const productsData = [
     description: "Garrafa térmica infantil com design de tigre, ideal para crianças manterem suas bebidas na temperatura ideal durante o dia todo.",
     price: 89.90,
     image: "/lovable-uploads/916c16ca-dde0-4607-96dd-d8dd929695d9.png",
-    affiliateLink: "#",
+    affiliateLink: "https://amzn.to/example1",
     marketplace: "Amazon" as const
   },
   {
@@ -20,7 +21,7 @@ const productsData = [
     description: "Mouse sem fio Logitech com design ergonômico e conexão wireless confiável.",
     price: 69.90,
     image: "/lovable-uploads/45b9d1ee-4483-49a9-b587-d206edbf92ce.png",
-    affiliateLink: "#",
+    affiliateLink: "https://mercadolivre.com/example2",
     marketplace: "Mercado Livre" as const
   },
   {
@@ -29,7 +30,7 @@ const productsData = [
     description: "Caneca temática com arte do lendário piloto Ayrton Senna, perfeita para fãs de Fórmula 1.",
     price: 49.90,
     image: "/lovable-uploads/6ec34983-d8de-4a2e-ba29-cbd11a33acbb.png",
-    affiliateLink: "#",
+    affiliateLink: "https://magalu.com/example3",
     marketplace: "Magalu" as const
   },
   {
@@ -38,7 +39,7 @@ const productsData = [
     description: "Monitor gamer Samsung com tela de 24 polegadas, ideal para jogos e trabalho.",
     price: 899.90,
     image: "/lovable-uploads/d74f516e-b3c1-43ac-ae78-9320c1077752.png",
-    affiliateLink: "#",
+    affiliateLink: "https://shopee.com/example4",
     marketplace: "Shopee" as const
   },
   {
@@ -47,7 +48,7 @@ const productsData = [
     description: "Garrafa térmica em aço inox com capacidade de 1.9 litros, perfeita para manter bebidas quentes ou frias.",
     price: 129.90,
     image: "/lovable-uploads/408b2c0d-c85a-41b4-b599-ce4ca5007684.png",
-    affiliateLink: "#",
+    affiliateLink: "https://mercadolivre.com/example5",
     marketplace: "Mercado Livre" as const
   },
   {
@@ -56,7 +57,7 @@ const productsData = [
     description: "Caneca comemorativa Ayrton Senna com design clássico da equipe Nacional.",
     price: 59.90,
     image: "/lovable-uploads/8a52a963-727c-49da-9bae-7acadb9dac89.png",
-    affiliateLink: "#",
+    affiliateLink: "https://amzn.to/example6",
     marketplace: "Amazon" as const
   },
 ];
@@ -97,7 +98,7 @@ const Store = () => {
 
         <div className={`grid gap-8 ${
           viewMode === 'grid' 
-            ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4' 
+            ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
             : 'grid-cols-1 gap-y-8'
         }`}>
           {productsData.map((product) => (
