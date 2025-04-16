@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 import { 
   BookOpen, 
   Briefcase, 
@@ -10,12 +11,14 @@ import {
   LogIn,
   Menu,
   X,
-  Search
+  Search,
+  LogOut
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
   
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -63,18 +66,32 @@ const Navbar = () => {
 
           {/* Auth buttons */}
           <div className="hidden md:flex space-x-2">
-            <Link to="/login">
-              <Button variant="outline" size="sm" className="flex items-center">
-                <LogIn className="h-4 w-4 mr-2" />
-                Entrar
+            {user ? (
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={signOut}
+                className="flex items-center text-red-600 hover:text-red-700 hover:bg-red-50"
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Sair
               </Button>
-            </Link>
-            <Link to="/register">
-              <Button size="sm" className="flex items-center">
-                <UserPlus className="h-4 w-4 mr-2" />
-                Cadastrar
-              </Button>
-            </Link>
+            ) : (
+              <>
+                <Link to="/login">
+                  <Button variant="outline" size="sm" className="flex items-center">
+                    <LogIn className="h-4 w-4 mr-2" />
+                    Entrar
+                  </Button>
+                </Link>
+                <Link to="/register">
+                  <Button size="sm" className="flex items-center">
+                    <UserPlus className="h-4 w-4 mr-2" />
+                    Cadastrar
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -101,18 +118,31 @@ const Navbar = () => {
                 </Link>
               ))}
               <div className="flex flex-col space-y-2 px-4 pt-2 border-t">
-                <Link to="/login" onClick={() => setIsMenuOpen(false)}>
-                  <Button variant="outline" className="w-full flex items-center justify-center">
-                    <LogIn className="h-4 w-4 mr-2" />
-                    Entrar
+                {user ? (
+                  <Button 
+                    variant="ghost" 
+                    onClick={signOut}
+                    className="w-full flex items-center justify-center text-red-600 hover:text-red-700 hover:bg-red-50"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sair
                   </Button>
-                </Link>
-                <Link to="/register" onClick={() => setIsMenuOpen(false)}>
-                  <Button className="w-full flex items-center justify-center">
-                    <UserPlus className="h-4 w-4 mr-2" />
-                    Cadastrar
-                  </Button>
-                </Link>
+                ) : (
+                  <>
+                    <Link to="/login" onClick={() => setIsMenuOpen(false)}>
+                      <Button variant="outline" className="w-full flex items-center justify-center">
+                        <LogIn className="h-4 w-4 mr-2" />
+                        Entrar
+                      </Button>
+                    </Link>
+                    <Link to="/register" onClick={() => setIsMenuOpen(false)}>
+                      <Button className="w-full flex items-center justify-center">
+                        <UserPlus className="h-4 w-4 mr-2" />
+                        Cadastrar
+                      </Button>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>

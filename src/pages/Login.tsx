@@ -1,6 +1,6 @@
-
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import { Mail, Lock, UserPlus, Building2, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,11 +17,30 @@ import Layout from "@/components/layout/Layout";
 const Login = () => {
   const [activeTab, setActiveTab] = useState<"login" | "register">("login");
   const [accountType, setAccountType] = useState<"individual" | "company">("individual");
+  const navigate = useNavigate();
+  const { signIn, signUp, user } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  if (user) {
+    navigate('/');
+    return null;
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Lógica de autenticação aqui
-    console.log("Formulário enviado:", activeTab, accountType);
+    const formData = new FormData(e.target as HTMLFormElement);
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+
+    try {
+      if (activeTab === "login") {
+        await signIn(email, password);
+        navigate('/');
+      } else {
+        await signUp(email, password);
+      }
+    } catch (error) {
+      console.error('Authentication error:', error);
+    }
   };
 
   return (
