@@ -1,11 +1,7 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { Mail, Lock, UserPlus, Building2, User } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Tabs,
   TabsContent,
@@ -13,34 +9,37 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 import Layout from "@/components/layout/Layout";
+import LoginForm from "@/components/auth/LoginForm";
+import RegisterForm from "@/components/auth/RegisterForm";
 
 const Login = () => {
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState<"login" | "register">("login");
-  const [accountType, setAccountType] = useState<"individual" | "company">("individual");
   const navigate = useNavigate();
-  const { signIn, signUp, user } = useAuth();
+  const { user } = useAuth();
+
+  // Set initial tab based on URL path
+  useEffect(() => {
+    if (location.pathname === "/register") {
+      setActiveTab("register");
+    } else {
+      setActiveTab("login");
+    }
+  }, [location.pathname]);
 
   if (user) {
     navigate('/');
     return null;
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
+  const handleSwitchToRegister = () => {
+    setActiveTab("register");
+    navigate("/register");
+  };
 
-    try {
-      if (activeTab === "login") {
-        await signIn(email, password);
-        navigate('/');
-      } else {
-        await signUp(email, password);
-      }
-    } catch (error) {
-      console.error('Authentication error:', error);
-    }
+  const handleSwitchToLogin = () => {
+    setActiveTab("login");
+    navigate("/login");
   };
 
   return (
@@ -72,145 +71,12 @@ const Login = () => {
 
               {/* Aba de Login */}
               <TabsContent value="login">
-                <form onSubmit={handleSubmit} className="space-y-4 py-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="login-email">Email</Label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                      <Input id="login-email" type="email" placeholder="seu@email.com" className="pl-10" />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="login-password">Senha</Label>
-                      <Link to="/forgot-password" className="text-sm text-gj-purple hover:underline">
-                        Esqueceu a senha?
-                      </Link>
-                    </div>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                      <Input id="login-password" type="password" placeholder="••••••••" className="pl-10" />
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="remember" />
-                    <Label htmlFor="remember" className="text-sm">Lembrar de mim</Label>
-                  </div>
-
-                  <Button type="submit" className="w-full">
-                    Entrar
-                  </Button>
-
-                  <div className="text-center text-sm text-gray-500 mt-2">
-                    Não tem uma conta?{" "}
-                    <button
-                      type="button"
-                      className="text-gj-purple hover:underline"
-                      onClick={() => setActiveTab("register")}
-                    >
-                      Cadastre-se
-                    </button>
-                  </div>
-                </form>
+                <LoginForm onSwitchTab={handleSwitchToRegister} />
               </TabsContent>
 
               {/* Aba de Cadastro */}
               <TabsContent value="register">
-                <div className="grid grid-cols-2 gap-2 mb-4">
-                  <Button
-                    type="button"
-                    variant={accountType === "individual" ? "default" : "outline"}
-                    className="flex items-center justify-center gap-2"
-                    onClick={() => setAccountType("individual")}
-                  >
-                    <User size={18} />
-                    <span>Candidato</span>
-                  </Button>
-                  <Button
-                    type="button"
-                    variant={accountType === "company" ? "default" : "outline"}
-                    className="flex items-center justify-center gap-2"
-                    onClick={() => setAccountType("company")}
-                  >
-                    <Building2 size={18} />
-                    <span>Empresa</span>
-                  </Button>
-                </div>
-
-                <form onSubmit={handleSubmit} className="space-y-4 py-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="register-name">
-                      {accountType === "individual" ? "Nome Completo" : "Nome da Empresa"}
-                    </Label>
-                    <div className="relative">
-                      {accountType === "individual" ? (
-                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                      ) : (
-                        <Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                      )}
-                      <Input 
-                        id="register-name" 
-                        placeholder={accountType === "individual" ? "João Silva" : "Empresa S/A"} 
-                        className="pl-10" 
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="register-email">Email</Label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                      <Input id="register-email" type="email" placeholder="seu@email.com" className="pl-10" />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="register-password">Senha</Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                      <Input id="register-password" type="password" placeholder="••••••••" className="pl-10" />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="register-confirm-password">Confirme sua senha</Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-                      <Input id="register-confirm-password" type="password" placeholder="••••••••" className="pl-10" />
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <Checkbox id="terms" />
-                    <Label htmlFor="terms" className="text-sm">
-                      Eu concordo com os{" "}
-                      <Link to="/terms" className="text-gj-purple hover:underline">
-                        Termos de Serviço
-                      </Link>{" "}
-                      e{" "}
-                      <Link to="/privacy" className="text-gj-purple hover:underline">
-                        Política de Privacidade
-                      </Link>
-                    </Label>
-                  </div>
-
-                  <Button type="submit" className="w-full">
-                    Cadastrar
-                  </Button>
-
-                  <div className="text-center text-sm text-gray-500 mt-2">
-                    Já tem uma conta?{" "}
-                    <button
-                      type="button"
-                      className="text-gj-purple hover:underline"
-                      onClick={() => setActiveTab("login")}
-                    >
-                      Entre
-                    </button>
-                  </div>
-                </form>
+                <RegisterForm onSwitchTab={handleSwitchToLogin} />
               </TabsContent>
             </Tabs>
           </div>
