@@ -14,32 +14,34 @@ interface StoreCardProps {
 
 const StoreCard = ({ title, description, price, image, affiliateLink, marketplace }: StoreCardProps) => {
   return (
-    <Card className="flex flex-col h-full hover:shadow-lg transition-shadow">
-      <CardHeader className="p-4">
-        <div className="aspect-square relative overflow-hidden rounded-md">
+    <Card className="flex flex-col h-full hover:shadow-lg transition-shadow duration-300">
+      <CardHeader className="p-6">
+        <div className="aspect-square relative overflow-hidden rounded-lg">
           <img
             src={image}
             alt={title}
-            className="object-cover w-full h-full hover:scale-105 transition-transform"
+            className="object-cover w-full h-full hover:scale-110 transition-transform duration-500"
           />
         </div>
       </CardHeader>
-      <CardContent className="flex-1 p-4 pt-0">
-        <h3 className="font-semibold text-lg mb-2 line-clamp-2">{title}</h3>
-        <p className="text-sm text-gray-600 mb-4 line-clamp-3">{description}</p>
+      <CardContent className="flex-1 p-6 pt-0">
+        <h3 className="font-semibold text-xl mb-3 line-clamp-2 min-h-[3.5rem]">{title}</h3>
+        <p className="text-sm text-gray-600 mb-6 line-clamp-3">{description}</p>
         <div className="flex items-center justify-between">
-          <span className="text-xl font-bold text-gj-purple">
+          <span className="text-2xl font-bold text-gj-purple">
             R$ {price.toFixed(2)}
           </span>
-          <span className="text-sm text-gray-500">{marketplace}</span>
+          <span className="text-sm font-medium px-3 py-1 bg-gj-gray-light rounded-full text-gj-purple">
+            {marketplace}
+          </span>
         </div>
       </CardContent>
-      <CardFooter className="p-4 pt-0">
-        <Button asChild className="w-full gap-2">
+      <CardFooter className="p-6 pt-0">
+        <Button asChild className="w-full gap-2 text-base py-6" size="lg">
           <a href={affiliateLink} target="_blank" rel="noopener noreferrer">
-            <ShoppingCart className="h-4 w-4" />
+            <ShoppingCart className="h-5 w-5" />
             <span>Comprar</span>
-            <ExternalLink className="h-4 w-4" />
+            <ExternalLink className="h-5 w-5" />
           </a>
         </Button>
       </CardFooter>
