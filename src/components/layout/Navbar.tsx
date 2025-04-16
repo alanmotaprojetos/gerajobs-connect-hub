@@ -24,6 +24,7 @@ const Navbar = () => {
   const menuItems = [
     { name: 'Cursos', path: '/courses', icon: <BookOpen className="h-5 w-5" /> },
     { name: 'Vagas', path: '/jobs', icon: <Briefcase className="h-5 w-5" /> },
+    { name: 'Currículo', path: '/resume', icon: <UserPlus className="h-5 w-5" /> },
     { name: 'Loja', path: '/store', icon: <ShoppingBag className="h-5 w-5" /> },
     { name: 'Notícias', path: '/news', icon: <Newspaper className="h-5 w-5" /> },
     { name: 'Empresas', path: '/companies', icon: <Building2 className="h-5 w-5" /> },
