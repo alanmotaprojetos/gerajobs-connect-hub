@@ -5,10 +5,11 @@ import { ProfileSection } from '@/components/resume/ProfileSection';
 import { ExperienceSection } from '@/components/resume/ExperienceSection';
 import { EducationSection } from '@/components/resume/EducationSection';
 import { ResumeUpload } from '@/components/resume/ResumeUpload';
+import { ViewProfile } from '@/components/profile/ViewProfile';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const Resume = () => {
-  const [activeTab, setActiveTab] = useState('profile');
+  const [activeTab, setActiveTab] = useState('view');
 
   return (
     <Layout>
@@ -29,12 +30,17 @@ const Resume = () => {
           onValueChange={setActiveTab}
           className="space-y-8"
         >
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4">
-            <TabsTrigger value="profile">Perfil</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5">
+            <TabsTrigger value="view">Visualizar</TabsTrigger>
+            <TabsTrigger value="profile">Editar Perfil</TabsTrigger>
             <TabsTrigger value="experience">Experiência</TabsTrigger>
             <TabsTrigger value="education">Formação</TabsTrigger>
             <TabsTrigger value="resume">Currículo</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="view" className="space-y-8">
+            <ViewProfile />
+          </TabsContent>
 
           <TabsContent value="profile" className="space-y-8">
             <ProfileSection />
