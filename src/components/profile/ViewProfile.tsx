@@ -4,7 +4,9 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { User2 } from 'lucide-react';
+import { User2, RefreshCw } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 interface UserProfile {
   full_name: string;
@@ -21,44 +23,89 @@ export const ViewProfile = () => {
   const { user } = useAuth();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
+
+  const fetchProfile = async () => {
+    if (!user) {
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from('user_profiles')
+        .select('*')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (error) {
+        throw error;
+      }
+      
+      setProfile(data);
+    } catch (error: any) {
+      console.error('Error fetching profile:', error);
+      toast({
+        title: "Erro ao carregar perfil",
+        description: error.message || "Não foi possível carregar seus dados",
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      if (!user) return;
-
-      try {
-        const { data, error } = await supabase
-          .from('user_profiles')
-          .select('*')
-          .eq('user_id', user.id)
-          .single();
-
-        if (error) throw error;
-        setProfile(data);
-      } catch (error) {
-        console.error('Error fetching profile:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchProfile();
   }, [user]);
 
+  if (!user) {
+    return (
+      <Card className="text-center py-8">
+        <CardContent>
+          <p className="text-lg mb-4">Você precisa estar logado para visualizar seu perfil.</p>
+          <p className="text-muted-foreground">Faça login para acessar todos os recursos.</p>
+        </CardContent>
+      </Card>
+    );
+  }
+
   if (loading) {
-    return <div className="text-center py-4">Carregando perfil...</div>;
+    return (
+      <Card className="text-center py-8">
+        <CardContent className="flex flex-col items-center">
+          <RefreshCw className="h-8 w-8 animate-spin mb-4" />
+          <p>Carregando seu perfil...</p>
+        </CardContent>
+      </Card>
+    );
   }
 
   if (!profile) {
-    return <div className="text-center py-4">Perfil não encontrado</div>;
+    return (
+      <Card className="text-center py-8">
+        <CardContent className="flex flex-col items-center">
+          <p className="text-lg mb-4">Perfil não encontrado</p>
+          <p className="text-muted-foreground mb-4">Você ainda não completou seu cadastro.</p>
+          <Button onClick={() => fetchProfile()}>
+            Tentar novamente
+          </Button>
+        </CardContent>
+      </Card>
+    );
   }
+
+  const profileImageUrl = profile.profile_image 
+    ? `${supabase.storage.from('profile_images').getPublicUrl(profile.profile_image).data.publicUrl}` 
+    : null;
 
   return (
     <Card>
       <CardHeader className="flex flex-row items-center gap-4">
         <Avatar className="h-16 w-16">
-          {profile.profile_image ? (
-            <AvatarImage src={profile.profile_image} alt={profile.full_name} />
+          {profileImageUrl ? (
+            <AvatarImage src={profileImageUrl} alt={profile.full_name} />
           ) : (
             <AvatarFallback>
               <User2 className="h-8 w-8" />

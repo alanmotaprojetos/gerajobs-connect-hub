@@ -1,5 +1,6 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { ProfileSection } from '@/components/resume/ProfileSection';
 import { ExperienceSection } from '@/components/resume/ExperienceSection';
@@ -7,9 +8,28 @@ import { EducationSection } from '@/components/resume/EducationSection';
 import { ResumeUpload } from '@/components/resume/ResumeUpload';
 import { ViewProfile } from '@/components/profile/ViewProfile';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Resume = () => {
   const [activeTab, setActiveTab] = useState('view');
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Handle URL query parameters for tab selection
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const tab = params.get('tab');
+    if (tab && ['view', 'profile', 'experience', 'education', 'resume'].includes(tab)) {
+      setActiveTab(tab);
+    }
+  }, [location]);
+
+  // Update URL when tab changes
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    navigate(`/resume?tab=${value}`, { replace: true });
+  };
 
   return (
     <Layout>
@@ -27,7 +47,7 @@ const Resume = () => {
       <div className="gj-container py-12">
         <Tabs 
           value={activeTab} 
-          onValueChange={setActiveTab}
+          onValueChange={handleTabChange}
           className="space-y-8"
         >
           <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5">
