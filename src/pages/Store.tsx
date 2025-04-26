@@ -59,6 +59,15 @@ const productsData = [
     affiliateLink: "https://amzn.to/example6",
     marketplace: "Amazon" as const
   },
+  {
+    id: 7,
+    title: "JBL, Fone de Ouvido Com Fio JBLQTUM100M2BLK",
+    description: "Fone de ouvido com fio JBL, design over-ear com microfone, ideal para jogos, streaming e chamadas de vídeo.",
+    price: 299.90,
+    image: "/lovable-uploads/eba14e54-5ae2-45c0-a8e7-ef5f59a76080.png",
+    affiliateLink: "https://amzn.to/4jWok2l",
+    marketplace: "Amazon" as const
+  }
 ];
 
 const Store = () => {
