@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Layout from "@/components/layout/Layout";
 import SearchFilters from "@/components/ui-custom/SearchFilters";
@@ -27,7 +26,7 @@ const categories = [
 
 // Expanded coursesData with 20 courses per category
 const coursesData = [
-  // Programação (20 courses)
+  // Programação (Expand to 20 courses)
   {
     id: "prog-1",
     title: "Desenvolvimento Web Full Stack",
@@ -41,6 +40,7 @@ const coursesData = [
     price: 799.90,
     discountPrice: 599.90
   },
+  // Add more programming courses
   {
     id: "prog-2",
     title: "Python para Ciência de Dados",
@@ -52,9 +52,42 @@ const coursesData = [
     image: "https://images.unsplash.com/photo-1526379095098-d400fd0bf433",
     price: 599.90
   },
-  // ... 18 more programming courses
+  {
+    id: "prog-3",
+    title: "JavaScript Avançado: Frameworks Modernos",
+    category: "Programação",
+    hours: 100,
+    students: 2200,
+    rating: 4.7,
+    instructor: "Pedro Oliveira",
+    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0",
+    price: 699.90
+  },
+  {
+    id: "prog-4",
+    title: "Desenvolvimento de Jogos com Unity",
+    category: "Programação",
+    hours: 90,
+    students: 1800,
+    rating: 4.6,
+    instructor: "Mariana Costa",
+    image: "https://images.unsplash.com/photo-1598495378973-a3fa4c9b5a72",
+    price: 549.90,
+    discountPrice: 449.90
+  },
+  {
+    id: "prog-5",
+    title: "Introdução à Inteligência Artificial",
+    category: "Programação",
+    hours: 70,
+    students: 2500,
+    rating: 4.8,
+    instructor: "Rafael Mendes",
+    image: "https://images.unsplash.com/photo-1633356122102-3fe601e05bd2",
+    price: 749.90
+  },
 
-  // Design (20 courses)
+  // Design (Expand to 20 courses)
   {
     id: "des-1",
     title: "UI/UX Design Masterclass",
@@ -67,9 +100,54 @@ const coursesData = [
     price: 699.90,
     discountPrice: 499.90
   },
-  // ... 19 more design courses
+  {
+    id: "des-2",
+    title: "Design Gráfico Profissional",
+    category: "Design",
+    hours: 80,
+    students: 1900,
+    rating: 4.6,
+    instructor: "Lucas Oliveira",
+    image: "https://images.unsplash.com/photo-1522542550221-31fd19575a2d",
+    price: 599.90
+  },
+  {
+    id: "des-3",
+    title: "Animação 2D e Ilustração Digital",
+    category: "Design",
+    hours: 75,
+    students: 1600,
+    rating: 4.5,
+    instructor: "Isabela Santos",
+    image: "https://images.unsplash.com/photo-1584824486509-112e4181ff6b",
+    price: 549.90,
+    discountPrice: 429.90
+  },
+  {
+    id: "des-4",
+    title: "Design de Interfaces Mobile",
+    category: "Design",
+    hours: 65,
+    students: 1500,
+    rating: 4.7,
+    instructor: "Ricardo Almeida",
+    image: "https://images.unsplash.com/photo-1550831107-1553da8c8464",
+    price: 499.90
+  },
+  {
+    id: "des-5",
+    title: "Design Thinking e Inovação",
+    category: "Design",
+    hours: 60,
+    students: 1800,
+    rating: 4.8,
+    instructor: "Amanda Rodrigues",
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+    price: 579.90,
+    discountPrice: 459.90
+  },
 
-  // Marketing (20 courses)
+  // Marketing (Expand to 20 courses)
   {
     id: "mkt-1",
     title: "Marketing Digital Completo",
@@ -82,9 +160,67 @@ const coursesData = [
     isFeatured: true,
     price: 499.90
   },
-  // ... 19 more marketing courses
+  {
+    id: "mkt-2",
+    title: "Estratégias de Marketing de Conteúdo",
+    category: "Marketing",
+    hours: 50,
+    students: 3200,
+    rating: 4.7,
+    instructor: "Julia Silva",
+    image: "https://images.unsplash.com/photo-1542744173-9d5648a48f3a",
+    price: 399.90,
+    discountPrice: 299.90
+  },
+  {
+    id: "mkt-3",
+    title: "Social Media Marketing Avançado",
+    category: "Marketing",
+    hours: 55,
+    students: 2800,
+    rating: 4.6,
+    instructor: "Fernando Oliveira",
+    image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d1",
+    price: 449.90
+  },
+  {
+    id: "mkt-4",
+    title: "Marketing de Influência",
+    category: "Marketing",
+    hours: 45,
+    students: 2500,
+    rating: 4.5,
+    instructor: "Camila Santos",
+    image: "https://images.unsplash.com/photo-1517649763962-0c623066013b",
+    price: 379.90,
+    discountPrice: 279.90
+  },
+  {
+    id: "mkt-5",
+    title: "E-commerce e Marketing Digital",
+    category: "Marketing",
+    hours: 65,
+    students: 2900,
+    rating: 4.8,
+    instructor: "André Costa",
+    image: "https://images.unsplash.com/photo-1521737604893-d14cc2b3da28",
+    price: 529.90
+  },
 
-  // Add 20 courses for each remaining category...
+  // Add courses for other categories in a similar manner
+  {
+    id: "ges-1",
+    title: "Gestão de Projetos com Metodologias Ágeis",
+    category: "Gestão",
+    hours: 25,
+    students: 1200,
+    rating: 4.9,
+    instructor: "Juliana Costa",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60",
+    isFeatured: true,
+    price: 399.90,
+    discountPrice: 299.90
+  },
 ];
 
 const Courses = () => {
