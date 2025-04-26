@@ -1,4 +1,3 @@
-
 import Layout from "@/components/layout/Layout";
 import StoreCard from "@/components/ui-custom/StoreCard";
 import { useState } from "react";
@@ -12,7 +11,7 @@ const productsData = [
     description: "Garrafa térmica infantil com design de tigre, ideal para crianças manterem suas bebidas na temperatura ideal durante o dia todo.",
     price: 89.90,
     image: "/lovable-uploads/916c16ca-dde0-4607-96dd-d8dd929695d9.png",
-    affiliateLink: "https://amzn.to/example1",
+    affiliateLink: "https://amzn.to/42GE9EB",
     marketplace: "Amazon" as const
   },
   {
